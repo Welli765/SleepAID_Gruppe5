@@ -39,12 +39,7 @@ def load_user(user_id):
 
 
 
-
-
-username1 = "surin"
-password1 = "1234"
-
-testbruger = User("")
+bruger = User("")
 
 @app.route("/") #@ = Decorator
 def home():
@@ -67,14 +62,14 @@ def login():
             return redirect(url_for("home"))
         else:
             return render_template("login.html")
-    
+
 
 
 
 @app.route("/data")
 @login_required
 def data():
-    if testbruger.is_authenticated == True:
+    if bruger.is_authenticated == True:
         return render_template("data.html")
     else:
         flash("Mangler login.")
