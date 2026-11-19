@@ -44,7 +44,7 @@ def load_user(user_id):
 username1 = "surin"
 password1 = "1234"
 
-testbruger = User(username1)
+testbruger = User("")
 
 @app.route("/") #@ = Decorator
 def home():
@@ -59,13 +59,15 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        print(username, password)
-        if username == username1 and password == password1:
-            login_user(testbruger)
+        p = pam.pam()
+        print(p.code)
+        print(p.reason)
+        if p.authenticate(username, password, service='login', print_failure_messages=True):
+            login_user(User(username))
             return redirect(url_for("home"))
         else:
             return render_template("login.html")
-    #if pam.authenticate(user, password, servie='login'):
+    
 
 
 
